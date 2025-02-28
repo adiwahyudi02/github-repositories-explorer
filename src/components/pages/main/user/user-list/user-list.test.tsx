@@ -1,16 +1,22 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { UserList } from "../user-list";
 import { useUserRepositoryContext } from "@/contexts/user-repository.context";
 import { mockUsersRes } from "@/__mocks__/user.mock";
+import { useIsMounted } from "@/hooks/useIsMounted";
 
 // Mock useUserRepositoryContext
 jest.mock("@/contexts/user-repository.context");
+jest.mock("@/hooks/useIsMounted");
 
 const mockUseUserRepositoryContext =
   useUserRepositoryContext as jest.MockedFunction<
     typeof useUserRepositoryContext
   >;
+
+const mockUseIsMounted = useIsMounted as jest.MockedFunction<
+  typeof useIsMounted
+>;
 
 // Default Mock Values
 const defaultMockContext = {
@@ -46,7 +52,8 @@ describe("UserList", () => {
     expect(screen.getByText("adiwahyudinata")).toBeInTheDocument();
   });
 
-  it("should show UserNameProfilePlaceholder when loading users", () => {
+  it("should show UserNameProfilePlaceholder when loading users", async () => {
+    mockUseIsMounted.mockReturnValue(false);
     mockUseUserRepositoryContext.mockReturnValue({
       ...defaultMockContext,
       isLoadingUsers: true,
@@ -54,7 +61,9 @@ describe("UserList", () => {
 
     render(<UserList />);
 
-    expect(screen.getAllByRole("status")).toHaveLength(2);
+    await waitFor(() => {
+      expect(screen.getAllByRole("status")).toHaveLength(2);
+    });
   });
 
   it("should display a Message when no users match the search", () => {

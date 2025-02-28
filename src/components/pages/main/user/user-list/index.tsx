@@ -5,8 +5,11 @@ import { UserNameProfile } from "../user-name-profile";
 import { Message } from "@/components/ui/message";
 import { UserNameProfilePlaceholder } from "../user-name-profile-placeholder";
 import { RepositoryList } from "../../repository/repository-list";
+import { useIsMounted } from "@/hooks/useIsMounted";
 
 export const UserList: React.FC = () => {
+  const isMounted = useIsMounted();
+
   const {
     users,
     isLoadingUsers,
@@ -41,7 +44,7 @@ export const UserList: React.FC = () => {
 
       <UserNameProfilePlaceholder
         count={paramsGetUsers.per_page}
-        isVisible={isLoadingUsers}
+        isVisible={isLoadingUsers && !isMounted}
       />
 
       {!users.length && !!paramsGetUsers.q && !isLoadingUsers && (
@@ -51,7 +54,7 @@ export const UserList: React.FC = () => {
         />
       )}
 
-      {!users.length && !paramsGetUsers.q && !isLoadingUsers && (
+      {!users.length && !paramsGetUsers.q && (!isLoadingUsers || isMounted) && (
         <Message
           imageSrc="https://github.com/images/modules/search/home-desktop-light2x.png"
           title="Discover GitHub Users"
