@@ -1,0 +1,4 @@
+export const QUERY_KEY = {
+  GET_USERS: "GET_USERS",
+  GET_REPOSITORIES: "GET_REPOSITORIES",
+};
