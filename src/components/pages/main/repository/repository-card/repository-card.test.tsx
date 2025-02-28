@@ -8,7 +8,7 @@ describe("RepositoryCard", () => {
     repoUrl: "https://github.com/example-repo",
     description: "This is an example repository",
     language: "TypeScript",
-    watchers: 1234,
+    stars: 1234,
     updatedAt: "2023-08-15T12:34:56Z",
   };
 

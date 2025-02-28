@@ -1,13 +1,13 @@
 import { updatedOnFormatDate } from "@/utils/date.utils";
 import React from "react";
-import { IoEyeOutline } from "react-icons/io5";
+import { IoStarOutline } from "react-icons/io5";
 
 interface IRepositoryCardProps {
   repoName: string;
   repoUrl: string;
   description: string | null;
   language: string | null;
-  watchers: number;
+  stars: number;
   updatedAt: string;
 }
 
@@ -16,7 +16,7 @@ export const RepositoryCard: React.FC<IRepositoryCardProps> = ({
   repoUrl,
   description,
   language,
-  watchers,
+  stars,
   updatedAt,
 }) => {
   return (
@@ -33,8 +33,8 @@ export const RepositoryCard: React.FC<IRepositoryCardProps> = ({
       <div className="flex items-center justify-between flex-wrap gap-4 text-sm text-gray-400 mt-4">
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1">
-            <IoEyeOutline />
-            {watchers.toLocaleString()}
+            <IoStarOutline />
+            {stars.toLocaleString()}
           </span>
           {!!language && (
             <span className="flex items-center gap-1">

@@ -23,7 +23,7 @@ export const RepositoryList: React.FC = () => {
           repoUrl={repo.html_url}
           description={repo.description}
           language={repo.language}
-          watchers={repo.watchers}
+          stars={repo.stargazers_count ?? 0}
           updatedAt={repo.updated_at}
         />
       ))}
