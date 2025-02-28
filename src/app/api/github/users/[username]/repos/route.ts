@@ -8,12 +8,12 @@ import { axiosServer } from "@/utils/axios-instances.utils";
 
 export async function GET(
   request: Request,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ) {
   const { searchParams } = new URL(request.url);
   const page = Number(searchParams.get("page"));
   const per_page = Number(searchParams.get("per_page"));
-  const { username } = params;
+  const username = (await params).username;
 
   // Ensure username is provided
   if (!username) {

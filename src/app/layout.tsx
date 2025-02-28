@@ -4,6 +4,7 @@ import "./globals.css";
 import { ReactQueryProvider } from "@/providers/react-query.provider";
 import { ToastContainer } from "react-toastify";
 import { UserRepositoryProvider } from "@/contexts/user-repository.context";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,10 +31,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ReactQueryProvider>
-          <UserRepositoryProvider>
-            {children}
-            <ToastContainer />
-          </UserRepositoryProvider>
+          <Suspense>
+            <UserRepositoryProvider>
+              {children}
+              <ToastContainer />
+            </UserRepositoryProvider>
+          </Suspense>
         </ReactQueryProvider>
       </body>
     </html>
