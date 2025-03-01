@@ -10,7 +10,7 @@ export const UserSearchInput: React.FC = () => {
       <SearchInput
         value={search}
         onChange={handleSearch}
-        placeholder="Search Github Users"
+        placeholder="Search users by username"
       />
     </div>
   );
